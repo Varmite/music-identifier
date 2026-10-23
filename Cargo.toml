@@ -1,0 +1,60 @@
+[package]
+name = "music-identifier"
+version = "1.0.0"
+edition = "2021"
+description = "Recognise the music playing in any window"
+license = "GPL-3.0-or-later"
+
+[dependencies]
+eframe = { version = "0.37", default-features = false, features = ["default_fonts", "glow", "wayland", "x11"] }
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp"] }
+realfft = "3.5"
+crc32fast = "1.4"
+base64 = "0.22"
+uuid = { version = "1", features = ["v4"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+open = "5"
+dirs = "6"
+
+# OS-native TLS on Windows/macOS (SChannel / Security.framework, system cert store);
+# pure-Rust rustls on Linux so there's no OpenSSL dependency.
+[target.'cfg(any(windows, target_os = "macos"))'.dependencies]
+ureq = { version = "3", default-features = false, features = ["json", "gzip", "native-tls-no-default"] }
+
+[target.'cfg(not(any(windows, target_os = "macos")))'.dependencies]
+ureq = { version = "3", features = ["json"] }
+
+[target.'cfg(windows)'.dependencies]
+windows-core = "0.62"
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_System_Threading",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_Variant",
+    "Win32_Media_Audio",
+    "Win32_Media_Audio_Endpoints",
+    "Win32_Security",
+    "Win32_Graphics_Dwm",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_Console",
+] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", features = ["NSArray", "NSError", "NSString", "NSObject"] }
+objc2-core-foundation = "0.3"
+objc2-core-audio-types = "0.3"
+objc2-core-media = { version = "0.3", features = ["CMSampleBuffer", "CMFormatDescription", "CMBlockBuffer", "CMTime", "objc2-core-audio-types"] }
+objc2-screen-capture-kit = "0.3"
+block2 = "0.6"
+dispatch2 = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
