@@ -4,6 +4,7 @@ version = "1.0.0"
 edition = "2021"
 description = "Recognise the music playing in any window"
 license = "GPL-3.0-or-later"
+build = "build.rs"
 
 [dependencies]
 eframe = { version = "0.37", default-features = false, features = ["default_fonts", "glow", "wayland", "x11"] }
@@ -51,6 +52,9 @@ objc2-core-media = { version = "0.3", features = ["CMSampleBuffer", "CMFormatDes
 objc2-screen-capture-kit = "0.3"
 block2 = "0.6"
 dispatch2 = "0.3"
+
+[target.'cfg(windows)'.build-dependencies]
+embed-resource = "3"
 
 [profile.release]
 opt-level = 3

@@ -10,6 +10,8 @@
     <string>io.github.varmite.music-identifier</string>
     <key>CFBundleExecutable</key>
     <string>music-identifier</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleVersion</key>

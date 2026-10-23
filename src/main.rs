@@ -70,7 +70,8 @@ fn main() -> eframe::Result {
         viewport: egui::ViewportBuilder::default()
             .with_title("Music Identifier")
             .with_inner_size([460.0, 720.0])
-            .with_min_inner_size([380.0, 520.0]),
+            .with_min_inner_size([380.0, 520.0])
+            .with_icon(eframe::icon_data::from_png_bytes(include_bytes!("../packaging/icon.png")).expect("valid icon")),
         ..Default::default()
     };
     eframe::run_native("Music Identifier", options, Box::new(|cc| Ok(Box::new(app::App::new(cc)))))

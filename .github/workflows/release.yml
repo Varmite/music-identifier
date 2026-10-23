@@ -72,8 +72,9 @@ jobs:
               ;;
             macOS)
               APP="Music Identifier.app"
-              mkdir -p "$APP/Contents/MacOS"
+              mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
               cp "$BIN" "$APP/Contents/MacOS/"
+              cp packaging/icon.icns "$APP/Contents/Resources/AppIcon.icns"
               sed "s/VERSION/$VERSION/g" packaging/macos/Info.plist > "$APP/Contents/Info.plist"
               # Ad-hoc signature so the Screen Recording permission sticks to the app.
               codesign --force --deep -s - "$APP"
